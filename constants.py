@@ -16,11 +16,12 @@ if not (env_MEDIA_DIR is None):
     MEDIA_DIR = env_MEDIA_DIR
 elif os.path.exists("media_dir.txt"):
     with open("media_dir.txt", 'rU') as media_file:
-        MEDIA_DIR = media_file.readline().strip()
+        MEDIA_DIR = media_file.readline().strip()  # strip(char):  get rid of  char  in front or back of a string,    and default  char =' '
 else:
     MEDIA_DIR = os.path.join(
-        os.path.expanduser('~'),
-        "Dropbox (3Blue1Brown)/3Blue1Brown Team Folder"
+        # os.path.expanduser('~'),
+        # "Dropbox (3Blue1Brown)/3Blue1Brown Team Folder"
+        "D:\git3b1bcode\output"
     )
 
 if not os.path.exists(MEDIA_DIR):
@@ -34,6 +35,21 @@ if not os.path.exists(MEDIA_DIR):
 with open("media_dir.txt", 'w') as media_file:
     media_file.write(MEDIA_DIR)
 #
+# os.path.exists
+# os.path.join
+# os.getenv   # get environment variable
+# os.putenv   # put environment variable
+# os.environ
+
+
+# file = open("/tmp/foo.txt")
+# data = file.read()
+# file.close()
+
+# BECOME:
+# with open("/tmp /foo.txt") as file:
+#     data = file.read()
+
 
 
 DEFAULT_PIXEL_HEIGHT = 1080
@@ -199,3 +215,55 @@ PALETTE = COLOR_MAP.values()
 locals().update(COLOR_MAP)
 for name in filter(lambda s: s.endswith("_C"), COLOR_MAP.keys()):
     locals()[name.replace("_C", "")] = locals()[name]
+
+
+
+
+
+# locals() returns a dictionary contanining:
+# variables
+# tuples
+# lists
+# function pointer
+# etc
+# IN LOCAL SCOPE
+
+# And    globals()    returns a dictionary IN GLOBAL SCOPE
+
+# locals().update(COLOR_MAP)
+# MAKE    key-value-pair   in dictionary COLOR_MAP
+# BECOME  variable-value-pair
+# IN LOCAL SCOPE
+
+# filter(funcPtr, ITERABLE objects)
+# in python 2.7 filter returns a     'list'    that satisfy function condition in filter()
+# in python 3.5 filter returns a   'ITERATOR'  that satisfy function condition in filter()
+
+
+# MARK:
+# in python 2.7 dict.values()  &  dict.keys()  returns a  'list'
+# in python 3.5 dict.values()  &  dict.keys()  returns  'dist_value' & 'dist_keys'   that is iterator!!
+
+
+# iterator  &  iterable
+# 'list', 'tuple', 'dict', 'set' and 'str' they are all have a method  '__iter__',   SO they are ITERABLE, BUT NOT ITERATOR
+# generator also has method  '__iter__',  and also has method '__next__'  SO it is a ITERATOR
+# function 'iter()' can make   ITERABLE object   into   ITERATOR
+# function 'list()' can make   ITERATOR          into   list
+
+# ITERATOR advantages:
+# (1) iterator load data one at a time, while list must load all data one time
+# so if the database is very large, iterator save both memory space and time
+# (2) if there are some math series that can only be expressed by recursion formular
+# and has no general formula, list can't work, but ITERATOR can still work will
+
+# e.g.
+
+# test = iter([1,2,3,4,5])
+# while True:
+#     try:
+#         x = test.__next__()
+#     except StopIteration:
+#         break
+
+
